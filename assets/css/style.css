@@ -8,13 +8,14 @@ body {
 	font-size: 20px;
 }
 
-h2 {
+h1 {
 	font-family: 'Georgia', Times, 'Times New Roman', serif;
 	font-size: 20px;
 	font-weight: bold;
 	/*padding: 20px;*/
 }
- p {
+
+p {
  	font-size: 16px;
  }
 
@@ -22,6 +23,18 @@ div {
 	padding: 0px 2px 0px 2px;
 	margin-top: 10px;
 	margin-left: 10px;
+}
+
+.btn {
+	width: auto;
+	height: auto;
+	float: left;
+	padding: 10px 10px 10px 10px;
+}
+
+.img {
+	height: 50px;
+	width: 50px;
 }
 
 #title {
@@ -65,7 +78,7 @@ div {
 #wins_losses {
 	background-color: cyan;
 	color: black;
-	font-size: 30px;
+	font-size: 16px;
 	height: 98%;
 	width: 30%;
 	float: left;
@@ -75,9 +88,14 @@ div {
 	/*margin-top: -20px;*/
 }
 
+#wins, #losses {
+	font-size: 14px;
+	padding: 10px 5px 0px 5px;
+}
+
 #crystals {
-	background-color: white;
-	color: black;
+	/*background-color: white;*/
+	/*color: black;*/
 	height: 10%;
 	width: 50%;
 	/*padding: 0px 2px 2px 2px;*/

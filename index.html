@@ -5,11 +5,19 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+   <!-- Added link to the jQuery Library -->
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+
+    <audio id="tada" src="assets/audio/tada.mp3" type="audio/mp3" preload="auto"></audio>
+    <audio id="wawa" src="assets/audio/wawa.mp3" type="audio/mp3" preload="auto"></audio>
+
+
 </head>
 <body>
 	<div id="container"> 
 		<div id="title">
-			<h2>CrystalsCollector!</h2>
+			<h1>CrystalsCollector!</h1>
 		</div>	
 		<div id="instructions">
 			<br>
@@ -26,14 +34,140 @@
 		<br>
 		<div id="section">
 			<section id="goal"></section>
-			<section id="wins_losses"></section>
+			<section id="wins_losses">
+				<br>
+				<h2 id="wins">Wins:</h2> 
+				<br>
+				<h2 id="losses">Losses:</h2> 
+			</section>
 		</div>	
-		<div id="crystals">Crystals go here...</div>
+		<div id="crystals">
+			<button class="btn" id="red"><img class="img" src="assets/images/red.png"></button>
+			<button class="btn" id="green"><img class="img" src="assets/images/green.png"></button>
+			<button class="btn" id="blue"><img class="img" src="assets/images/blue.png"></button>			
+			<button class="btn" id="yellow"><img class="img" src="assets/images/yellow.png"></button>
+		</div>
 		<div id="score_is">Your total score is: </div>
 		<div id="score"></div>
-	</div>	
+	</div>
 
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
 
-<!-- <script type="text/javascript" src="assets/javascript/game.js"></script> -->
+	<script type="text/javascript">
+
+		var ranges = [37,53,71,89];
+		var decima = [10,20,30,40,50,60,70,80];
+		var sameNo = [11,22,33,44,55,66,77,88];
+		var follow = [12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98];
+		var cnumbs = [0,0,0,0];
+		var r      = 0;
+		var wins   = 0;
+		var losses = 0;	
+		var score  = 0;
+		var goal   = 0; 
+
+		var tada   = document.getElementById("tada");
+		var wawa   = document.getElementById("wawa");
+		// tada.addEventListener('ended',showAlert("Winner!"));		
+		// wawa.addEventListener('ended',showAlert("Loser!"));		
+
+		reset(); 
+
+		// Button clicks 
+		$("#red").on('click', function() {
+			checkScore(0);
+		});
+		$("#green").on('click', function() {
+			checkScore(1);
+		});
+		$("#blue").on('click', function() {
+			checkScore(2);
+		});		
+		$("#yellow").on('click', function() {
+			checkScore(3);
+		}); 		
+
+		// Reset function - sets up variables
+		// & displays wins, losses, etc. 
+		function reset() {	
+			score = 0;		   
+			// Call our randomize function to set up our numbers
+			randomize();
+			// Display wins & losses
+			$("#wins").html("Wins: " + wins);		
+			$("#losses").html("Losses: " + losses);
+			$("#score").html(score);
+		};
+
+		function randomize() {
+			// We generate a random number between 0 and ranges[r]
+			// First, set our pointer r by cycling thru 0 - 3
+			if (r <= 2) {
+				r++;
+			}else{
+				r = 0; 
+			} 
+			console.log("r="+r);
+			// Now we set our actual random number
+			var randNumber = Math.floor(Math.random()*ranges[r])+1;
+			if (randNumber <= 10) {
+				randNumber = 11; 
+			}
+			console.log("Original randnumber="+randNumber);
+			var i = $.inArray(randNumber,decima);
+			if (i != -1) {
+				randNumber += 1;
+			}
+
+			var j = $.inArray(randNumber,sameNo);
+			if (j != -1) {
+				randNumber += 3; 
+			}else {
+				var k = $.inArray(randNumber,follow);
+				if (k != -1) {
+					randNumber += 3; 
+				}	
+			}
+			console.log(j,k);
+			console.log("Modified randNumber="+randNumber);
+			goal = randNumber; 
+			$("#goal").html(randNumber);
+			var randa = ""+randNumber;
+			console.log(randa); 
+
+			// load our numbers array - first, the randNumber digits
+			cnumbs[0] = parseInt(randa[0]);
+			cnumbs[1] = parseInt(randa[1]);
+			// then load remainder
+			cnumbs[2] = parseInt(randa[0])+1;
+			cnumbs[3] = parseInt(randa[1])+1;
+			console.log(cnumbs);			
+		};
+
+		function checkScore(i) {
+			if (score < goal) {
+				score += cnumbs[i];
+				$("#score").html(score);
+			}
+
+			switch (true) {	
+				case (score == goal):
+					wins++;
+					$("#wins").html("Wins: " + wins);
+					tada.play();
+					alert("Winner!");
+					reset();
+					break;
+				case (score > goal):
+					losses++;
+					$("#losses").html("Losses: " + losses);
+					wawa.play();
+					alert("Loser!");
+					reset(); 
+					break;
+			}
+		};
+
+	</script>
 </body>
 </html>
