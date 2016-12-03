@@ -9,8 +9,8 @@
    <!-- Added link to the jQuery Library -->
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
 
-    <audio id="tada" src="assets/audio/tada.mp3" type="audio/mp3" preload="auto"></audio>
-    <audio id="wawa" src="assets/audio/wawa.mp3" type="audio/mp3" preload="auto"></audio>
+<!--     <audio id="tada" src="assets/audio/tada.mp3" type="audio/mp3" preload="auto"></audio>
+    <audio id="wawa" src="assets/audio/wawa.mp3" type="audio/mp3" preload="auto"></audio> -->
 
 
 </head>
@@ -66,26 +66,18 @@
 		var score  = 0;
 		var goal   = 0; 
 
-		var tada   = document.getElementById("tada");
-		var wawa   = document.getElementById("wawa");
+		var tada   = new Audio("assets/audio/tada.mp3");
+		var wawa   = new Audio("assets/audio/wawa.mp3");
 		// tada.addEventListener('ended',showAlert("Winner!"));		
 		// wawa.addEventListener('ended',showAlert("Loser!"));		
 
 		reset(); 
 
 		// Button clicks 
-		$("#red").on('click', function() {
-			checkScore(0);
-		});
-		$("#green").on('click', function() {
-			checkScore(1);
-		});
-		$("#blue").on('click', function() {
-			checkScore(2);
-		});		
-		$("#yellow").on('click', function() {
-			checkScore(3);
-		}); 		
+		$("#red").on('click',    function() { checkScore(0); });
+		$("#green").on('click',  function() { checkScore(1); });
+		$("#blue").on('click',   function() { checkScore(2); });		
+		$("#yellow").on('click', function() { checkScore(3); }); 		
 
 		// Reset function - sets up variables
 		// & displays wins, losses, etc. 
